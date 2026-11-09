@@ -1,0 +1,321 @@
+/* =====================================================================
+   EXPENSE TRACKER - style.css
+
+   Design idea:
+   - A deep teal banner behind the title and the Total card (gives the page identity).
+   - Teal = main color. Warm amber = small accent (money feel). Red = danger only.
+   - White cards with soft shadows on a light background.
+
+   All colors live in :root. To re-theme the app, change the variables only.
+   ===================================================================== */
+
+:root {
+  --bg: #eef3f1; /* page background */
+  --card: #ffffff; /* cards */
+  --text: #12302c; /* main text */
+  --text-muted: #5b6f6b; /* labels, secondary text */
+  --border: #dbe5e2; /* borders */
+
+  --teal-900: #072f2b; /* darkest: banner start */
+  --teal-700: #0b4a44; /* banner end */
+  --primary: #0f766e; /* main buttons, focus */
+  --primary-dark: #115e59; /* hover */
+  --primary-soft: #e3f2ef; /* light teal surfaces */
+  --accent: #f5b942; /* amber: small highlights */
+
+  --danger: #b91c1c;
+  --danger-soft: #fdecec;
+
+  --radius: 14px;
+  --shadow: 0 6px 20px rgba(7, 47, 43, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* The banner: a dark gradient behind the top 240px of the page, then the normal background */
+body {
+  margin: 0;
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Arial,
+    sans-serif;
+  color: var(--text);
+  background:
+    linear-gradient(135deg, var(--teal-900), var(--teal-700)) top / 100% 240px
+      no-repeat,
+    var(--bg);
+}
+
+.container {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2rem;
+  letter-spacing: 0.5px;
+  margin: 8px 0 28px;
+  color: #ffffff;
+}
+
+h2 {
+  font-size: 1.15rem;
+  margin: 0 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* A small amber bar before each section title */
+h2::before {
+  content: '';
+  width: 4px;
+  height: 1.1em;
+  border-radius: 4px;
+  background-color: var(--accent);
+}
+
+/* ---------- Cards ---------- */
+
+.total-section,
+.expense-form-section,
+.expenses-section,
+.chart-section {
+  background-color: var(--card);
+  padding: 24px;
+  border-radius: var(--radius);
+  margin-bottom: 24px;
+  box-shadow: var(--shadow);
+}
+
+/* ---------- Total card: gradient + decorative circles ---------- */
+
+.total-section {
+  position: relative;
+  overflow: hidden; /* clips the decorative circles inside the card */
+  background: linear-gradient(135deg, #14b8a6 0%, #0f766e 55%, #0b4a44 100%);
+  color: #ffffff;
+  padding: 28px 24px;
+  box-shadow: 0 12px 28px rgba(7, 47, 43, 0.3);
+}
+
+.total-section::before,
+.total-section::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.total-section::before {
+  width: 180px;
+  height: 180px;
+  top: -70px;
+  right: -40px;
+}
+
+.total-section::after {
+  width: 110px;
+  height: 110px;
+  bottom: -50px;
+  right: 90px;
+}
+
+.total-section h2 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 600;
+  opacity: 0.85;
+  margin-bottom: 8px;
+}
+
+/* the amber bar is not needed on the Total card */
+.total-section h2::before {
+  display: none;
+}
+
+#total-expenses {
+  position: relative; /* keeps the number above the circles */
+  font-size: 2.6rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* ---------- Form ---------- */
+
+#expense-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#expense-form label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+#expense-form input,
+#expense-form select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 1rem;
+  background-color: #f8fbfa;
+  color: var(--text);
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+
+#expense-form input:focus,
+#expense-form select:focus {
+  outline: none;
+  background-color: #ffffff;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.2);
+}
+
+#expense-form button {
+  padding: 14px;
+  margin-top: 8px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #14b8a6, var(--primary));
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition:
+    transform 0.1s,
+    box-shadow 0.15s;
+  box-shadow: 0 4px 12px rgba(15, 118, 110, 0.35);
+}
+
+#expense-form button:hover {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+}
+
+#expense-form button:active {
+  transform: translateY(1px);
+}
+
+#custom-category-field {
+  display: none; /* JavaScript shows it when 'Other' is selected */
+}
+
+/* ---------- Expenses list ---------- */
+
+#expenses-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* each expense is a small rounded row with a teal edge on the left */
+#expenses-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  background-color: #f8fbfa;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--primary);
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+#expenses-list li:hover {
+  background-color: var(--primary-soft);
+}
+
+/* Buttons: the text ('Edit' / 'Delete') comes from script.js, the CSS only styles it */
+#expenses-list button {
+  padding: 8px 14px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+#expenses-list .edit-btn {
+  background-color: #ffffff;
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+#expenses-list .edit-btn:hover {
+  background-color: var(--primary);
+  color: #ffffff;
+}
+
+#expenses-list .delete-btn {
+  background-color: var(--danger-soft);
+  color: var(--danger);
+  margin-left: auto; /* pushes BOTH buttons to the right side, next to each other */
+}
+
+#expenses-list .delete-btn:hover {
+  background-color: var(--danger);
+  color: #ffffff;
+}
+
+/* ---------- Chart ---------- */
+
+.chart-section canvas {
+  display: block;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+#chart-message {
+  display: none;
+  margin: 0;
+  padding: 24px 0;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 480px) {
+  .container {
+    padding: 16px;
+  }
+
+  h1 {
+    font-size: 1.7rem;
+  }
+
+  .total-section,
+  .expense-form-section,
+  .expenses-section,
+  .chart-section {
+    padding: 18px;
+  }
+
+  #total-expenses {
+    font-size: 2.2rem;
+  }
+
+  /* no wrapping of the buttons: the text wraps instead, the buttons stay on one line */
+  #expenses-list button {
+    flex-shrink: 0;
+    padding: 8px 10px;
+  }
+}

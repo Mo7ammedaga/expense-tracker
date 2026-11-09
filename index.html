@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"
+      defer
+    ></script>
+    <script src="script.js" defer></script>
+  </head>
+
+  <body>
+    <main class="container">
+      <h1>Expense Tracker</h1>
+
+      <section class="total-section">
+        <h2>Total Expenses</h2>
+        <p id="total-expenses">0 SAR</p>
+      </section>
+
+      <section class="expense-form-section">
+        <h2>Add Expense</h2>
+
+        <form id="expense-form" novalidate>
+          <label for="amount">Amount (SAR)</label>
+          <input
+            type="number"
+            id="amount"
+            name="amount"
+            min="0.01"
+            step="0.01"
+            required
+          />
+
+          <label for="category">Category</label>
+          <select id="category" name="category" required>
+            <option value="">Select a category</option>
+            <option value="Food">Food</option>
+            <option value="Transport">Transport</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Bills">Bills</option>
+            <option value="Other">Other</option>
+          </select>
+
+          <div id="custom-category-field">
+            <label for="custom-category">Custom Category</label>
+            <input type="text" id="custom-category" name="custom-category" />
+          </div>
+
+          <label for="description">Description (optional)</label>
+          <input type="text" id="description" name="description" />
+
+          <button type="submit">Add Expense</button>
+        </form>
+      </section>
+
+      <section class="expenses-section">
+        <h2>Expenses</h2>
+
+        <ul id="expenses-list"></ul>
+      </section>
+
+      <section class="chart-section">
+        <h2>Expenses by Category</h2>
+        <canvas id="expenseChart"></canvas>
+        <p id="chart-message"></p>
+      </section>
+    </main>
+  </body>
+</html>
